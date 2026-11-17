@@ -10,17 +10,17 @@
     background:#faf8f4; color:#2b2118;
     font-family: Georgia, 'Times New Roman', serif;
     display:flex; flex-direction:column; align-items:center;
-    padding:10px 8px 14px; -webkit-user-select:none; user-select:none;
+    padding:0; margin:0; background:#1d1033; overflow:hidden; -webkit-user-select:none; user-select:none;
   }
   .masthead { text-align:center; margin-bottom:6px; }
   .brand { letter-spacing:4px; font-size:12px; color:#a8842c; text-transform:uppercase; }
   h1 { font-size:30px; font-weight:normal; margin:4px 0 2px; }
   h1 em { color:#a8842c; }
   .sub { font-style:italic; color:#6d5c43; font-size:14.5px; margin-bottom:12px; text-align:center; }
-  #wrap { width:100%; max-width:none; }
+  #wrap { width:100vw; height:100vh; }
   canvas {
-    width:100%; height:auto; display:block; border-radius:14px;
-    box-shadow:0 14px 40px rgba(80,55,10,.28), 0 2px 8px rgba(80,55,10,.18);
+    width:100vw; height:100vh; display:block; border-radius:0;
+    box-shadow:none;
     background:#1d1033; touch-action:none; cursor:pointer;
   }
   .bar { display:flex; gap:10px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
@@ -35,22 +35,11 @@
 </style>
 </head>
 <body>
-  <div class="masthead">
-    <div class="brand">SkyRoket Productions</div>
-    <h1>Ramayana: <em>Setu Runner</em></h1>
+  <h1>Ramayana: <em>Setu Runner</em></h1>
   </div>
-  <p class="sub">Run with Ram across the floating stones of Ram Setu. Leap the rocks, dodge the demon birds, gather the lotuses.</p>
-
   <div id="wrap">
     <canvas id="game" width="960" height="540"></canvas>
-    <div class="bar">
-      <button id="jumpBtn">Jump</button>
-      <button id="restartBtn" class="ghost">Restart</button>
     </div>
-    <p class="how">Tap, click, or press <b>Space</b> to jump. Press twice in the air for a double jump.<br>
-    Rocks and demon birds end the run. Every lotus is worth 25 points. The sea is not forgiving either: mind the gaps.</p>
-    <p class="credit">A SkyRoket Productions mini game, made for readers of the Ramayana articles.</p>
-  </div>
 
 <script>
 (function(){
@@ -440,9 +429,7 @@
   // ---------- input ----------
   function press(e){ if(e) e.preventDefault(); jump(); }
   cv.addEventListener('pointerdown', press);
-  document.getElementById('jumpBtn').addEventListener('click', press);
-  document.getElementById('restartBtn').addEventListener('click', function(e){ e.preventDefault(); audio(); reset(); state = 'play'; });
-  window.addEventListener('keydown', function(e){
+      window.addEventListener('keydown', function(e){
     if(e.code === 'Space' || e.code === 'ArrowUp'){ press(e); }
     if(e.code === 'KeyR' && state === 'over'){ reset(); state = 'play'; }
   });
